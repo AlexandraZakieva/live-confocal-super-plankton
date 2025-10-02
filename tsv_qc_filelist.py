@@ -3,7 +3,7 @@
 TSV QC + File_list builder (CLI)
 
 Usage:
-  python tsv_qc_filelist.py <input_table_1.tsv> <input_table_2.tsv> [-o OUTPUT_DIR]
+  python tsv_qc_filelist.py <input_table_1.tsv> <input_table_2.csv> [-o OUTPUT_DIR]
 
 - <input_table_1.tsv> must contain at least columns:
     name
@@ -11,7 +11,7 @@ Usage:
     Channel Name 1..4, Channel Visualized Entity Name 1..4,
     Channel Visualized Entity Type 1..4, Channel Label 1..4   (missing → blank)
 
-- <input_table_2.tsv> must contain columns:
+- <input_table_2.csv> must contain columns:
     name, tile, acquisition_date, acquisition_location
   (If a header cell contains an inline comment like "acquisition_location | http://…",
    the part after '|' is stripped automatically.)
@@ -19,6 +19,14 @@ Usage:
 Outputs (in OUTPUT_DIR, default: directory of <input_table_2>):
   - Conversion_QC.tsv
   - File_list.tsv
+
+File_list specifics:
+  • Data rows:
+      Files = LiveConfocalSuperPlankton/zipped_omezarrs/<name>_<tile>.ome.zarr.zip
+      acquisition_metadata (last col) = <name>.tsv
+  • After data rows, append one row per unique acquisition_metadata with:
+      Files = LiveConfocalSuperPlankton/CZI_metadata/<name>.tsv
+      all other columns empty
 """
 
 import argparse
@@ -37,6 +45,7 @@ for i in range(1, 5):
     ]
 
 FILES_PREFIX = "LiveConfocalSuperPlankton/zipped_omezarrs/"
+METADATA_PREFIX = "LiveConfocalSuperPlankton/CZI_metadata/"
 
 # ---- Helpers
 def clean_header_field(h: str) -> str:
@@ -58,6 +67,21 @@ def read_tsv_as_dicts(path: Path, clean_header: bool = False) -> List[Dict[str, 
         rows: List[Dict[str, str]] = []
         for row in reader:
             rows.append({k: (row.get(k, "") or "").strip() for k in headers})
+        return rows
+
+def read_csv_as_dicts(path: Path, clean_header: bool = False) -> List[Dict[str, str]]:
+    with path.open("r", newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f, delimiter=",", skipinitialspace=True)
+        if reader.fieldnames is None:
+            return []
+        orig_headers = reader.fieldnames
+        headers = [clean_header_field(h) for h in orig_headers] if clean_header else list(orig_headers)
+        rows: List[Dict[str, str]] = []
+        for row in reader:
+            fixed = {}
+            for orig, cleaned in zip(orig_headers, headers):
+                fixed[cleaned] = (row.get(orig, "") or "").strip()
+            rows.append(fixed)
         return rows
 
 def looks_like_biosample(val: str) -> bool:
@@ -109,6 +133,8 @@ def last_one_wins_map(rows: List[Dict[str, str]], key_col: str, val_cols: Iterab
     return out
 
 def ensure_columns(rows: List[Dict[str, str]], required: Iterable[str], table_name: str):
+    if not rows:
+        raise RuntimeError(f"{table_name} appears empty.")
     missing = [c for c in required if c not in rows[0]]
     if missing:
         raise RuntimeError(f"{table_name} is missing required column(s): {', '.join(missing)}")
@@ -122,9 +148,9 @@ def write_tsv(path: Path, header: List[str], rows: Iterable[Dict[str, str]]):
 
 # ---- Main
 def main():
-    ap = argparse.ArgumentParser(description="Build Conversion_QC.tsv and File_list.tsv from two TSVs.")
+    ap = argparse.ArgumentParser(description="Build Conversion_QC.tsv and File_list.tsv from two tables.")
     ap.add_argument("table1", type=Path, help="<input_table_1> TSV path")
-    ap.add_argument("table2", type=Path, help="<input_table_2> TSV path")
+    ap.add_argument("table2", type=Path, help="<input_table_2> CSV path")
     ap.add_argument("-o", "--outdir", type=Path, default=None, help="Output directory (default: alongside <input_table_2>)")
     args = ap.parse_args()
 
@@ -138,19 +164,19 @@ def main():
         raise SystemExit(f"Not found: {table2}")
     outdir.mkdir(parents=True, exist_ok=True)
 
-    # Read tables
+    # Read tables: TSV for table1, CSV for table2
     t1 = read_tsv_as_dicts(table1, clean_header=False)
-    t2 = read_tsv_as_dicts(table2, clean_header=True)  # strip header inline comments (after '|')
+    t2 = read_csv_as_dicts(table2, clean_header=True)  # strip header inline comments (after '|')
     if not t1 or not t2:
-        raise SystemExit("One of the TSVs is empty or has no header.")
+        raise SystemExit("One of the input files is empty or has no header.")
 
     # Table 2 sanity
     req2 = ["name", "tile", "acquisition_date", "acquisition_location"]
-    ensure_columns(t2, req2, "input_table_2")
+    ensure_columns(t2, req2, "input_table_2 (CSV)")
 
-    # Table 1 name
+    # Table 1 sanity
     if "name" not in t1[0]:
-        raise SystemExit("input_table_1 must contain column: name")
+        raise SystemExit("input_table_1 (TSV) must contain column: name")
 
     # Detect BioSamples column
     t1_header = list(t1[0].keys())
@@ -161,13 +187,17 @@ def main():
     t1_val_cols = [bios_col] + CHANNEL_COLS
     name_to_t1 = last_one_wins_map(t1, "name", t1_val_cols)
 
-    # File_list
+    # File_list header (add acquisition_metadata as the LAST column)
     file_list_header = (
         ["Files", "name", "BioSamples_ID", "tile", "acquisition_date", "acquisition_location"]
         + CHANNEL_COLS
+        + ["acquisition_metadata"]
     )
+
     file_list_rows: List[Dict[str, str]] = []
     counts_in_t2: Dict[str, int] = {}
+    unique_meta_in_order: List[str] = []
+    seen_meta: set = set()
 
     for r in t2:
         nm = r.get("name", "").strip()
@@ -180,6 +210,11 @@ def main():
         acq_loc = r.get("acquisition_location", "").strip()
 
         files_val = f"{FILES_PREFIX}{nm}_{tile}.ome.zarr.zip"
+        acquisition_metadata_val = f"{nm}.tsv"
+
+        if acquisition_metadata_val not in seen_meta:
+            seen_meta.add(acquisition_metadata_val)
+            unique_meta_in_order.append(acquisition_metadata_val)
 
         mapped = name_to_t1.get(nm, {})
         bios_val = (mapped.get(bios_col, "") or "").strip()
@@ -191,10 +226,18 @@ def main():
             "tile": tile,
             "acquisition_date": acq_date,
             "acquisition_location": acq_loc,
+            "acquisition_metadata": acquisition_metadata_val,
         }
         for c in CHANNEL_COLS:
             row[c] = (mapped.get(c, "") or "").strip()
         file_list_rows.append(row)
+
+    # Append one blank row per unique acquisition_metadata:
+    # Files = LiveConfocalSuperPlankton/CZI_metadata/<name>.tsv, others empty
+    for meta in unique_meta_in_order:
+        blank_row = {h: "" for h in file_list_header}
+        blank_row["Files"] = f"{METADATA_PREFIX}{meta}"
+        file_list_rows.append(blank_row)
 
     # Conversion_QC
     names_t1 = set(name_to_t1.keys())
