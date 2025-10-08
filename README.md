@@ -6,7 +6,7 @@ Supporting data processing and visualization scripts and documentation for the B
 If you have any problem with accessing imaging data, please submit an issue. We will come back to you ASAP.
 
 ## OME-Zarr visualisation on BioFile Finder (BFF)
-1. Download [this table](https://github.com/AlexandraZakieva/live-confocal-super-plankton/blob/main/live_confocal_trec_super_plankton_BFF.csv).
+1. Download this table as CSV from the [GitHub repository](https://github.com/AlexandraZakieva/live-confocal-super-plankton/blob/main/live_confocal_trec_super_plankton_BFF.csv) or from [Google Drive](https://docs.google.com/spreadsheets/d/10POdPRyy4L-6k6jI_24zKFvXqKrtB57yLOScrXm-njg/edit?usp=sharing).
 2. Go to https://bff.allencell.org.
 3. Click on `GET STARTED`.
 4. Click on `CHOOSE FILE`.
