@@ -21,7 +21,7 @@ If you have any problem with accessing imaging data, please submit an issue. We 
 
 ## OME-XML metadata visualization
 1. On BioFileFinder, find your image of interest and copy the corresponding S3 link.
-2. Open a new browser page.
+2. Open a new browser page in Mozilla Firefox or Google Chrome.
 3. Paste the S3 link to the web address field.
 4. Append to the link "/OME/METADATA.ome.xml".
 5. Press ENTER.
