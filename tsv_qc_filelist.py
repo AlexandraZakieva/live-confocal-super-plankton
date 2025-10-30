@@ -22,7 +22,7 @@ Outputs (in OUTPUT_DIR, default: directory of <input_table_2>):
 
 File_list specifics:
   • Data rows:
-      Files = LiveConfocalSuperPlankton/zipped_omezarrs/<name>_<tile>.ome.zarr.zip
+      Files = lcsp/<name>_<tile>.ome.zarr.zip
       acquisition_metadata (last col) = <name>.tsv
   • After data rows, append one row per unique acquisition_metadata with:
       Files = LiveConfocalSuperPlankton/CZI_metadata/<name>.tsv
@@ -44,7 +44,7 @@ for i in range(1, 5):
         f"Channel Label {i}",
     ]
 
-FILES_PREFIX = "LiveConfocalSuperPlankton/zipped_omezarrs/"
+FILES_PREFIX = "lcsp/"
 METADATA_PREFIX = "LiveConfocalSuperPlankton/CZI_metadata/"
 
 # ---- Helpers
