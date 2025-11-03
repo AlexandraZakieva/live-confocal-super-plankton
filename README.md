@@ -6,23 +6,18 @@ Supporting data processing and visualization scripts and documentation for the B
 If you have any problem with accessing imaging data, please submit an issue. We will come back to you ASAP.
 
 ## OME-Zarr visualisation on BioFile Finder (BFF)
-1. Download this table as CSV from the [GitHub repository](https://github.com/AlexandraZakieva/live-confocal-super-plankton/blob/main/live_confocal_trec_super_plankton_BFF.csv) or from [Google Drive](https://docs.google.com/spreadsheets/d/10POdPRyy4L-6k6jI_24zKFvXqKrtB57yLOScrXm-njg/edit?usp=sharing).
-2. Go to https://bff.allencell.org.
-3. Click on `GET STARTED`.
-4. Click on `CHOOSE FILE`.
-5. Select the file downloaded at the step 1.
-6. Click on `LOAD`.
-7. On the left panel, you can `Group by`, `Filter` or `Sort` the files at multiple levels. We recommend to group by acquisition_location, acquisition_date and name.
-8. On the upper bar, you can adjust the view. BFF automatically generates thumbnails.
-9. Select a file of your choice.
-10. On the right panel, click on `OPEN FILE`.
-11. Select `Vol-E`.
-12. On the left panel, click on the third icon to display the OME-Zarr metadata.
+1. Follow [this link](https://bff.allencell.org/app?c=File+Path%3A0.25%2Ctile%3A0.25%2Cname%3A0.25%2Cacquisition_date%3A0.25&source=%7B%22name%22%3A%22live_confocal_trec_super_plankton_BFF.csv+%2803%2F11%2F2025+15%3A59%3A26%29%22%2C%22type%22%3A%22csv%22%2C%22uri%22%3A%22https%3A%2F%2Fraw.githubusercontent.com%2FAlexandraZakieva%2Flive-confocal-super-plankton%2Frefs%2Fheads%2Fmain%2Flive_confocal_trec_super_plankton_BFF.csv%22%7D).
+2. On the left panel, you can `Group by`, `Filter` or `Sort` the files at multiple levels. We recommend to group by `acquisition_location`, `acquisition_date` and `name`.
+3. On the upper bar, you can adjust the view as list, big or small mosaic. BFF automatically generates thumbnails.
+4. Select a file of your choice.
+5. On the right panel, click on `OPEN FILE`.
+6. Select `Vol-E` or `Neuroglancer`.
+7. When opened in `Vol-E`, on the left panel, click on the third icon to display the OME-Zarr metadata.
 
 ## OME-XML metadata visualization
 1. On BioFileFinder, find your image of interest and copy the corresponding S3 link.
 2. Open a new browser page in Mozilla Firefox or Google Chrome.
-3. Paste the S3 link to the web address field.
+3. Paste the S3 link into the web address field.
 4. Append to the link "/OME/METADATA.ome.xml".
 5. Press ENTER.
 
