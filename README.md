@@ -5,7 +5,7 @@ Supporting data processing and visualization scripts and documentation for the B
 
 If you have any problem with accessing imaging data, please submit an issue. We will come back to you ASAP.
 
-## OME-Zarr visualisation on BioFile Finder (BFF)
+## Images visualisation on BioFile Finder (BFF)
 1. Follow [this link](https://bff.allencell.org/app?c=File+Path%3A0.25%2Ctile%3A0.25%2Cname%3A0.25%2Cacquisition_date%3A0.25&source=%7B%22name%22%3A%22live_confocal_trec_super_plankton_BFF.csv+%2803%2F11%2F2025+15%3A59%3A26%29%22%2C%22type%22%3A%22csv%22%2C%22uri%22%3A%22https%3A%2F%2Fraw.githubusercontent.com%2FAlexandraZakieva%2Flive-confocal-super-plankton%2Frefs%2Fheads%2Fmain%2Flive_confocal_trec_super_plankton_BFF.csv%22%7D).
 2. On the left panel, you can `Group by`, `Filter` or `Sort` the files at multiple levels. We recommend to group by `acquisition_location`, `acquisition_date` and `name`.
 3. On the upper bar, you can adjust the view as list, big or small mosaic. BFF automatically generates thumbnails.
