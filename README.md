@@ -1,4 +1,8 @@
 # Live Confocal Super Plankton
+
+NOTA BENE
+After the release of this accession, the community flagged key improvements that should be made. We will implement them in January 2026. Meanwhile, the most updated version of the OME-Zarr files are in the following S3 storage: https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets.
+
 Supporting data processing and visualization scripts and documentation for the BioImage Archive submission
 
 [TRaversing European Coastlines (TREC) Live Plankton High-Content Fluorescence Microscopy Dataset](https://www.ebi.ac.uk/biostudies/bioimages/studies/S-BIAD2258)
