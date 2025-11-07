@@ -10,7 +10,8 @@ To open them in an OME-Zarr viewer, use the following naming convention:
 - https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/naples/'name'_tile'tile'.zarr
 - https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/porto/'name'_tile'tile'.zarr
 - https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/tallinn/'name'_tile'tile'.zarr
-  where 'name' and 'tile' are the corresponding columns values in the BioImage Archive File List accession.
+
+where 'name' and 'tile' are the corresponding columns values in the BioImage Archive File List accession.
 
 Supporting data processing and visualization scripts and documentation for the BioImage Archive submission
 
