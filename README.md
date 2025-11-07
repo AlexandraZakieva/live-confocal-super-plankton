@@ -3,14 +3,14 @@
 NOTA BENE
 After the release of this accession, the community flagged key improvements that should be made. We will implement them in January 2026. Meanwhile, the most updated version of the OME-Zarr files are in the following S3 storage: https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets.
 To open them in an OME-Zarr viewer, use the following naming convention:
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/athens/<name>_tile<tile>.zarr
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/barcelona/<name>_tile<tile>.zarr
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/bilbao/<name>_tile<tile>.zarr
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/kristineberg/<name>_tile<tile>.zarr
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/naples/<name>_tile<tile>.zarr
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/porto/<name>_tile<tile>.zarr
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/tallinn/<name>_tile<tile>.zarr
-where <name> and <tile> are the corresponding columns values in the BioImage Archive File List accession.
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/athens/'name'_tile'tile'.zarr
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/barcelona/'name'_tile'tile'.zarr
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/bilbao/'name'_tile'tile'.zarr
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/kristineberg/'name'_tile'tile'.zarr
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/naples/'name'_tile'tile'.zarr
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/porto/'name'_tile'tile'.zarr
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/tallinn/'name'_tile'tile'.zarr
+where 'name' and 'tile' are the corresponding columns values in the BioImage Archive File List accession.
 
 Supporting data processing and visualization scripts and documentation for the BioImage Archive submission
 
