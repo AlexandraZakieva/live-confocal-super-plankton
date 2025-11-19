@@ -25,7 +25,8 @@ To open them in an OME-Zarr viewer, use the following naming convention:
 - https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/naples/name_tile.zarr
 - https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/porto/name_tile.zarr
 - https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/tallinn/name_tile.zarr
-where name and tile are the corresponding columns values in the BioImage Archive File List accession.
+
+  where name and tile are the corresponding columns values in the BioImage Archive File List accession.
 
 ## OME-XML metadata visualization
 1. On BioFileFinder, find your image of interest and copy the corresponding S3 link.
