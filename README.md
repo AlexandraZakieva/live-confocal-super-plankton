@@ -1,22 +1,7 @@
 # Live Confocal Super Plankton
 
-NOTA BENE
-After the release of this accession, the community flagged key improvements that should be made. We will implement them in January 2026. Meanwhile, the most updated version of the OME-Zarr files are in the following S3 storage: https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets.
-To open them in an OME-Zarr viewer, use the following naming convention:
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/athens/'name'_tile'tile'.zarr
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/barcelona/'name'_tile'tile'.zarr
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/bilbao/'name'_tile'tile'.zarr
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/kristineberg/'name'_tile'tile'.zarr
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/naples/'name'_tile'tile'.zarr
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/porto/'name'_tile'tile'.zarr
-- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/tallinn/'name'_tile'tile'.zarr
-
-where 'name' and 'tile' are the corresponding columns values in the BioImage Archive File List accession.
-
 Supporting data processing and visualization scripts and documentation for the BioImage Archive submission
-
 [TRaversing European Coastlines (TREC) Live Plankton High-Content Fluorescence Microscopy Dataset](https://www.ebi.ac.uk/biostudies/bioimages/studies/S-BIAD2258)
-
 If you have any problem with accessing imaging data, please submit an issue. We will come back to you ASAP.
 
 ## Images visualisation on BioFile Finder (BFF)
@@ -27,6 +12,18 @@ If you have any problem with accessing imaging data, please submit an issue. We 
 5. On the right panel, click on `OPEN FILE`.
 6. Select `Vol-E` or `Neuroglancer`.
 7. When opened in `Vol-E`, on the left panel, click on the third icon to display the OME-Zarr metadata.
+
+## NOTA BENE on OMERO and channels metadata
+After the release of this accession, the community flagged key improvements that should be made. We will implement them in January 2026. Meanwhile, the most updated version of the OME-Zarr files are in the following S3 storage: https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets.
+To open them in an OME-Zarr viewer, use the following naming convention:
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/athens/name_tile.zarr
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/barcelona/name_tile.zarr
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/bilbao/name_tile.zarr
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/kristineberg/name_tile.zarr
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/naples/name_tile.zarr
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/porto/name_tile.zarr
+- https://s3.embl.de/live-confocal-trec-super-plankton/converted_datasets/tallinn/name_tile.zarr
+where name and tile are the corresponding columns values in the BioImage Archive File List accession.
 
 ## OME-XML metadata visualization
 1. On BioFileFinder, find your image of interest and copy the corresponding S3 link.
